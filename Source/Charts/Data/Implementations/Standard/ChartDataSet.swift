@@ -39,7 +39,7 @@ open class ChartDataSet: ChartBaseDataSet
     
     @objc public init(entries: [ChartDataEntry], label: String)
     {
-        self.entries = entries 
+        self.entries = entries
 
         super.init(label: label)
 
@@ -214,7 +214,9 @@ open class ChartDataSet: ChartBaseDataSet
         rounding: ChartDataSetRounding) -> Int
     {
         var closest = partitioningIndex { $0.x >= xValue }
-        guard closest < endIndex else { return -1 }
+        if closest >= endIndex {
+              closest = endIndex - 1
+        }
 
         let closestXValue = self[closest].x
 
